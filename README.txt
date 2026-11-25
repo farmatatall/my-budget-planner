@@ -1,27 +1,41 @@
-MY BUDGET PLANNER · 2026–2027
+# My Budget Planner · 2026–2027
 
-WHAT'S INCLUDED
-- index.html: the responsive planner website
-- manifest.webmanifest: installable web-app settings
-- sw.js: offline cache for the planner shell
-- icon-192.png and icon-512.png: app icons
+A Neapolitan-colour personal money planner, installable as a Progressive Web App (PWA).
 
-OPEN AS A WEBSITE
-You can open index.html in a desktop browser. The planner stores entries in that browser on that device.
+## Included
+- Paycheck planner and budget allocations
+- Monthly and weekly budget views
+- Transaction tracker
+- Accounts and cash tracking
+- Bills and recurring expenses
+- School / tuition planning
+- Savings goals and emergency fund
+- Debt tracker and payment history
+- 40-slot wishlist with item and price
+- Monthly reflections, notes and backup / restore
+- Optional private cloud sync through Supabase
 
-INSTALL ON YOUR PHONE
-This is a Progressive Web App (PWA), not a native App Store / Google Play app. To install it, the folder must first be hosted at an HTTPS web address.
+## Publish the website
+This repository is public. In the repository, open **Settings → Pages** and choose **GitHub Actions** as the Source. The workflow in `.github/workflows/deploy.yml` publishes the website when changes are pushed to `main`. If Pages is not enabled yet, this one-time setting must be completed by the repository owner.
 
-1. Upload the contents of this folder to a static website host that provides HTTPS (for example, a static hosting service).
-2. Open the HTTPS website in Safari on iPhone/iPad, tap Share, then Add to Home Screen.
-3. On Android, open the HTTPS website in Chrome, tap the menu, then Install app or Add to Home screen.
+## Install on a phone
+Open the published HTTPS site in Safari on iPhone and choose **Share → Add to Home Screen**. On Android, open it in Chrome and choose **Install app / Add to Home screen**. This is a PWA, not a native App Store app.
 
-DATA & PRIVACY
-- No bank passwords are requested and no bank connection is made.
-- Entries are stored locally in the browser on each device.
-- The website and installed app do not automatically sync data between phone and computer.
-- Use Settings & backup to export a JSON backup and import it on another device. Keep backups private.
-- Clearing browser/site data can erase local planner entries.
+## Privacy
+This repository and the published GitHub Pages site are public. Anyone can view the website source and default settings. The planner's ordinary entries are stored in the browser on the device where they are entered unless optional cloud sync is configured. Do not enter bank passwords, full card numbers, or other highly sensitive information. Do not commit JSON backups, bank statements, or personal financial records to this repository.
 
-PERSONALIZED STARTING FIGURES
-The default working paycheck plan uses the amounts discussed: $400 weekly take-home estimate, $150 cash repayment to Mom, $80 food/transport, $10 weekly phone set-aside, $10 personal spending, $130 Spring tuition savings, and $20 emergency savings. Treat this as an editable example, not a promise that all goals are affordable. The Fall repayment starts at $7,870; Spring tuition estimate is $9,000 with $4,000 expected from Dad and a $5,000 estimated personal share. Confirm actual amounts and due dates with Fordham and family.
+Optional cloud sync is not active until a Supabase project is configured. Cloud sync uses Supabase Auth and a `planner_data` table protected by Row Level Security. If the planner user is under 18, a parent or guardian should review and manage any third-party account or service required, in accordance with that service's current terms. Never put a Supabase secret/service-role key in this public repository or in the browser app; use only the publishable key with the supplied RLS policies.
+
+## Cloud sync setup
+1. A parent/guardian reviews the provider's current terms and manages the Supabase project/account if appropriate.
+2. In Supabase SQL Editor, run `supabase-setup.sql`.
+3. Copy the Project URL and publishable key from the Supabase project settings.
+4. Open the planner → Settings & Backup → Private Cloud Sync. Enter the URL and publishable key, then save.
+5. Sign in under the account managed with the parent/guardian and choose whether to create the first cloud copy from this device or load an existing copy.
+6. Repeat on the second device with the same project URL, publishable key and authorized account. Choose **Load Cloud Copy** if the cloud already contains the planner you want to keep.
+
+## Sync notes
+- Local browser saving continues to work without cloud sync.
+- After sign-in and selecting a source copy, changes are uploaded after a short delay and realtime updates can reach the other signed-in device.
+- Simultaneous edits can overwrite newer data; avoid editing the same planner on both devices at the same time and keep regular private JSON backups.
+- Free-tier limits and inactivity policies can change. Check current terms and limits before relying on cloud sync as the only copy.
